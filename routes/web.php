@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\NewProject;
+use App\Livewire\ShowProjects;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home
+Route::get('/', [ShowProjects::class, 'render']);
+// Create project view
+Route::get('new', [NewProject::class, 'render']);
