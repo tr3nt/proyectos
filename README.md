@@ -4,7 +4,7 @@
 
 1. Clone repository
 ```bash
-git clone https://github.com/tr3nt/proyectos
+git clone https://github.com/tr3nt/proyectos.git
 ```
 2. Run composer
 ```bash
