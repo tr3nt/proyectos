@@ -1,7 +1,6 @@
 <?php
 
-use App\Livewire\NewProject;
-use App\Livewire\ShowProjects;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home
-Route::get('/', [ShowProjects::class, 'render']);
-// Create project view
-Route::get('new', [NewProject::class, 'render']);
+Route::get('/', [ProjectController::class, 'index']);
