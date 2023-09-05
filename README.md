@@ -2,21 +2,23 @@
 
 ### Installation
 
-1. Run composer
+1. Clone repository
+```bash
+git clone https://github.com/tr3nt/proyectos
+```
+2. Run composer
 ```bash
 composer install
 ```
-2. Put DB connection values in **.env** file
-
-3. Run migrations
+3. Put DB connection values in **.env** file
+4. Run migrations
 ```bash
 php artisan migrate
 ```
 ```bash
 php artisan db:seed
 ```
-
-4. Run NPM
+5. Run NPM
 ```bash
 npm install
 ```

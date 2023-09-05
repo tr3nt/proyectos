@@ -3,8 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Project;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
