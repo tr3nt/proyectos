@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('user', function (Request $request) { return $request->user(); });
+    Route::post('create-project', [ProjectController::class, 'create']);
+    Route::get('projects', [ProjectController::class, 'show']);
+    Route::get('project/{id}', [ProjectController::class, 'by_id']);
     Route::get('logout', [AuthController::class, 'logout']);
 });
 
