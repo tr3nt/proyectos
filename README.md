@@ -10,8 +10,11 @@ git clone https://github.com/tr3nt/proyectos.git
 ```bash
 composer install
 ```
-3. Put DB connection values in **.env** file
-4. Run migrations and permissions
+3. Put DB connection values in a new **.env** file (Linux example)
+```bash
+cp .env.example .env
+```
+4. Run migrations, seeders and permissions
 ```bash
 php artisan migrate
 ```
@@ -50,6 +53,7 @@ Backend:
 - Added Testing cases
 
 ### TODO
+- 2hr sleep to send an automatic mail
 - Alpine integration.
 
 ### Created by
