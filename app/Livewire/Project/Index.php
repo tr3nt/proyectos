@@ -33,6 +33,12 @@ class Index extends Component
             try {
                 $this->project->public = $this->public;
                 $this->project->save();
+                // Send mail delayed 10 minutes (commented for needing a mailer server)
+                /*Mail::to('esaim.najera@gmail.com')
+                    ->later(
+                        now()->addMinutes(10),
+                        new ProjectUpdated($this->project->title, $this->project->user->name)
+                    );*/
                 $this->response = "Project {$this->project->title} updated successfully";
             } catch (PDOException $e) {
                 $this->response = json_encode($e->getMessage());

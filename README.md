@@ -51,9 +51,9 @@ Backend:
 - Protected routes with Laravel Auth.
 - Frontend public and logged sections
 - Added Testing cases
+- 10 min delayed email (not tested but it is in **Create** and **Index** Livewire controllers and **ProjectUpdate** mailable done)
 
 ### TODO
-- 2hr sleep to send an automatic mail
 - Alpine integration.
 
 ### Created by

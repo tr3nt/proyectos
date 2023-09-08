@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Project;
 
+use App\Mail\ProjectUpdated;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
@@ -10,6 +11,7 @@ use Livewire\Component;
 use App\Models\Project;
 use PDOException;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 
 class Create extends Component
 {
@@ -37,6 +39,7 @@ class Create extends Component
 
     public function create()
     {
+        // Retrieve WYSIWYG data
         $this->form['description'] = $this->content;
         // Create rules for new Project
         $validator = Validator::make($this->form, [
@@ -57,6 +60,12 @@ class Create extends Component
                 $this->form['image'] = $imgRoute;
                 $this->form['id_created_by'] = auth()->user()->id;
                 Project::create($this->form);
+                // Send mail delayed 10 minutes (commented for needing a mailer server)
+                /*Mail::to('esaim.najera@gmail.com')
+                    ->later(
+                        now()->addMinutes(10),
+                        new ProjectUpdated($this->form['title'], auth()->user()->name)
+                    );*/
                 // Redirect to Projects list
                 return redirect(route('show'));
             } catch (PDOException $e) {
