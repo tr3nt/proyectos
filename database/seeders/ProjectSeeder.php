@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class ProjectSeeder extends Seeder
 {
@@ -15,12 +12,16 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'name' => 'Esaim Najera',
-            'email' => 'esaim.najera@gmail.com',
-            // Encrypted password
-            'password' => Hash::make('12345678'),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
+        // 10 Projects with Faker
+        DB::table('projects')->truncate();
+        foreach(range(1, 10) as $index) {
+            DB::table('projects')->insert([
+                'title' => fake()->word . " " . fake()->word,
+                'description' => fake()->text,
+                'image' => 'nopic.jpg',
+                'public' => fake()->boolean,
+                'id_created_by' => mt_rand(1,2)
+            ]);
+        }
     }
 }

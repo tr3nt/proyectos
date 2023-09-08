@@ -1,4 +1,4 @@
-## Projects
+## Projects 1.0
 
 ### Installation
 
@@ -25,18 +25,26 @@ npm install
 ```bash
 npm run dev
 ```
+6. Run Test cases
+```bash
+php artisan test
+```
+7. Users for test login
+- u: esaim.najera@gmail.com | p: 12345678
+- u: john@gmail.com | p: 12345678
 
 ### DONE
 Backend:
 - Migrations and seeder working
-- Users registration, login and logout. They can be tested using Rapid API Client or Postman.
-- Alpine, Laravel, Livewire and Tailwind implemented.
-- Protected routes by Bearer Token with Laravel Sanctum.
+- Users registration, login and logout.
+- Create and update Projects
+- Laravel, Livewire and Tailwind implemented.
+- Protected routes with Laravel Auth.
+- Frontend public and logged
+- Added Testing cases
 
 ### TODO
-1. All the Frontend.
-2. Backend:
-- Projects integration with Livewire.
+1. Alpine integration.
 
 ### Created by
 Esaim Najera Mondragon
