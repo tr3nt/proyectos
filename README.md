@@ -11,12 +11,18 @@ git clone https://github.com/tr3nt/proyectos.git
 composer install
 ```
 3. Put DB connection values in **.env** file
-4. Run migrations
+4. Run migrations and permissions
 ```bash
 php artisan migrate
 ```
 ```bash
 php artisan db:seed
+```
+```bash
+php artisan key:generate
+```
+```bash
+php artisan storage:link
 ```
 5. Run NPM
 ```bash
@@ -37,14 +43,14 @@ php artisan test
 Backend:
 - Migrations and seeder working
 - Users registration, login and logout.
-- Create and update Projects
+- Create, list, show and update Projects
 - Laravel, Livewire and Tailwind implemented.
 - Protected routes with Laravel Auth.
-- Frontend public and logged
+- Frontend public and logged sections
 - Added Testing cases
 
 ### TODO
-1. Alpine integration.
+- Alpine integration.
 
 ### Created by
 Esaim Najera Mondragon
