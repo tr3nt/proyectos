@@ -55,6 +55,7 @@ Backend:
 
 ### TODO
 - Alpine integration.
+- Projects delete
 
 ### Created by
 Esaim Najera Mondragon
