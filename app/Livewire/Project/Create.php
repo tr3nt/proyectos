@@ -2,16 +2,15 @@
 
 namespace App\Livewire\Project;
 
-use App\Mail\ProjectUpdated;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
+use App\Jobs\SendMailJob;
 use Illuminate\View\View;
 use Livewire\Component;
 use App\Models\Project;
 use PDOException;
 use Exception;
-use Illuminate\Support\Facades\Mail;
 
 class Create extends Component
 {
@@ -61,11 +60,7 @@ class Create extends Component
                 $this->form['id_created_by'] = auth()->user()->id;
                 Project::create($this->form);
                 // Send mail delayed 10 minutes (commented for needing a mailer server)
-                /*Mail::to('esaim.najera@gmail.com')
-                    ->later(
-                        now()->addMinutes(10),
-                        new ProjectUpdated($this->form['title'], auth()->user()->name)
-                    );*/
+                SendMailJob::dispatch($this->form['title'], auth()->user()->name)->delay(600);
                 // Redirect to Projects list
                 return redirect(route('show'));
             } catch (PDOException $e) {

@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Project;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
+use App\Jobs\SendMailJob;
 use App\Models\Project;
 use Livewire\Component;
 use PDOException;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -31,14 +32,12 @@ class Index extends Component
     {
         if (Auth::check()) {
             try {
+                // Update status from draft to public and viceversa
                 $this->project->public = $this->public;
                 $this->project->save();
                 // Send mail delayed 10 minutes (commented for needing a mailer server)
-                /*Mail::to('esaim.najera@gmail.com')
-                    ->later(
-                        now()->addMinutes(10),
-                        new ProjectUpdated($this->project->title, $this->project->user->name)
-                    );*/
+                SendMailJob::dispatch($this->form['title'], auth()->user()->name)->delay(600);
+                // Response in an alert box
                 $this->response = "Project {$this->project->title} updated successfully";
             } catch (PDOException $e) {
                 $this->response = json_encode($e->getMessage());

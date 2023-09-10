@@ -38,20 +38,34 @@ npm run dev
 ```bash
 php artisan test
 ```
-7. Users for test login
+7. Mailer Configuration .env file
+```bash
+QUEUE_CONNECTION=database
+...
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=yourUsername
+MAIL_PASSWORD=yourPassword
+```
+8. Run mail queue listener
+```bash
+php artisan queue:work
+```
+9. Users for test login
 - u: esaim.najera@gmail.com | p: 12345678
 - u: john@gmail.com | p: 12345678
 
 ### DONE
 Backend:
-- Migrations and seeder working
+- Migrations and seeder working.
 - Users registration, login and logout.
-- Create, list, show and update Projects
+- Create, list, show and update Projects.
 - Laravel, Livewire and Tailwind implemented.
 - Protected routes with Laravel Auth.
-- Frontend public and logged sections
-- Added Testing cases
-- 10 min delayed email (not tested but it is in **Create** and **Index** Livewire controllers and **ProjectUpdate** mailable done)
+- Frontend public and logged sections.
+- Added Testing cases.
+- 10 min delayed email in **Create** and **Index** Livewire controllers, **SendMailJob** job and **ProjectUpdate** mailable.
 
 ### TODO
 - Alpine integration.
