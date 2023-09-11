@@ -61,15 +61,13 @@ Backend:
 - Migrations and seeder working.
 - Users registration, login and logout.
 - Create, list, show and update Projects.
-- Laravel, Livewire and Tailwind implemented.
+- Laravel, Livewire, Tailwind and Alpinejs implemented.
 - Protected routes with Laravel Auth.
 - Frontend public and logged sections.
 - Added Testing cases.
 - 10 min delayed email in **Create** and **Index** Livewire controllers, **SendMailJob** job and **ProjectUpdate** mailable.
 
 ### TODO
-- Alpine integration.
-- Projects delete
 
 ### Created by
 Esaim Najera Mondragon

@@ -1,4 +1,4 @@
-<div class="flex-shrink-0 min-w-0">
+<div class="flex-shrink-0 min-w-0" x-data="{ isOpen: false }">
     <div class="text-2xl leading-[4rem]">
         {{ $project->title }}
     </div>
@@ -35,6 +35,10 @@
                 type="submit">
                 Update
             </button>
+            <button class="shadow bg-red-900 hover:bg-red-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="button" @click="isOpen = true">
+                Delete
+            </button>
         </div>
     </form>
     @endauth
@@ -48,4 +52,14 @@
         <p>{!! $response !!}</p>
     </div>
     @endif
+
+    <div x-show="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="bg-white p-4 shadow-lg rounded-lg">
+            <p>Are you sure you want to perform this action?</p>
+            <div class="mt-4">
+                <button @click="isOpen = false" class="px-4 py-2 mr-2 bg-gray-200 hover:bg-gray-300">Cancel</button>
+                <button @click="isOpen = false" wire:click="deleteById({{ $id }})" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
+            </div>
+        </div>
+    </div>
 </div>

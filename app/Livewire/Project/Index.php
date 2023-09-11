@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Project;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 use App\Jobs\SendMailJob;
@@ -15,6 +16,7 @@ class Index extends Component
     public $project;
     public $public;
     public $response;
+    public $id;
 
     public function render() : View
     {
@@ -36,7 +38,7 @@ class Index extends Component
                 $this->project->public = $this->public;
                 $this->project->save();
                 // Send mail delayed 10 minutes (commented for needing a mailer server)
-                SendMailJob::dispatch($this->form['title'], auth()->user()->name)->delay(600);
+                SendMailJob::dispatch($this->project->title, auth()->user()->name)->delay(600);
                 // Response in an alert box
                 $this->response = "Project {$this->project->title} updated successfully";
             } catch (PDOException $e) {
@@ -55,7 +57,28 @@ class Index extends Component
         try {
             $this->project = Project::find($id);
             $this->public = $this->project->public;
+            $this->id = $this->project->id;
             $this->response = "";
+        } catch (PDOException $e) {
+            $this->response = json_encode($e->getMessage());
+        } catch (Exception $e) {
+            $this->response = json_encode($e->getMessage());
+        }
+    }
+
+    // Delete a project by id
+    public function deleteById($id)
+    {
+        try {
+            $project = Project::find($id);
+            // Delete the picture from storage folder
+            if ($project->image !== 'nopic.jpg') {
+                Storage::disk('public')->delete($project->image);
+            }
+            // Delete project from database
+            $project->delete();
+            // Redirect to projects list
+            return redirect(route('show'));
         } catch (PDOException $e) {
             $this->response = json_encode($e->getMessage());
         } catch (Exception $e) {
