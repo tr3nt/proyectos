@@ -42,8 +42,6 @@ class Create extends Component
         ];
         Project::create($params);
         session()->flash('message', 'Project created successfully');
-        // Send mail delayed 10 minutes
-        SendMailJob::dispatch($this->title, auth()->user()->name)->delay(600);
         // Redirect to Projects list
         $this->redirect(Show::class);
     }
