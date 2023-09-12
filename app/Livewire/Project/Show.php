@@ -24,7 +24,7 @@ class Show extends Component
     // Get all projects by user logged id
     private function getProjects() : void
     {
-        $this->projects = Project::where('id_created_by', auth()->user()->id)
+        $this->projects = Project::where('users_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
     }

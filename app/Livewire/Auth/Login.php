@@ -33,11 +33,10 @@ class Login extends Component
             'email' => $this->email,
             'password' => $this->password
         ];
-        if (Auth::attempt($params)) {
+        if (Auth::attempt($params))
             $this->redirect(Show::class);
-        }
-        // Not logged
-        session()->flash('message', 'Bad Credentials');
+        else
+            session()->flash('message', 'Bad Credentials');
     }
 
     public function render() : View

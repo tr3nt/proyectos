@@ -17,11 +17,11 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->boolean('public');
-            $table->unsignedBigInteger('id_created_by');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
 
             // Foreign key from 'users' table
-            $table->foreign('id_created_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

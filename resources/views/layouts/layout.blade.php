@@ -44,7 +44,7 @@
         </header>
 
         <main>
-            <div  class="h-screen bg-gray-200 w-full flex justify-center items-center">
+            <div class="@if (request()->url() !== 'http://proyectos.test/projects') flex h-screen @endif bg-gray-200 w-full justify-center items-center">
                 @yield('content')
             </div>
         </main>

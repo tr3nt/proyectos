@@ -1,16 +1,61 @@
 <div class="text-left">
-    <div class="text-2xl leading-[4rem] text-center">
-        Project list
+    <div class="text-[3rem] leading-[5rem] w-[480px] mx-auto text-center border-b-2 border-t-2 border-red-600">
+        Portafolio
     </div>
-    <ul>
+    @guest
+    <div class="w-full max-w-[75%] p-5 pb-10 mx-auto mb-10 gap-4 columns-3 space-y-3">
         @foreach ($projects as $project)
-        <li>
+        <div x-data="{show: false}">
+            <div class="relative"
+                    x-on:mouseenter="show = true"
+                    x-on:mouseleave="show = false"
+                >
+                <!-- Image -->
+                <img src="{{ asset('storage/' . $project->image) }}" alt="Your Image" class="w-full h-auto" />
+
+                <!-- Semi-transparent card -->
+                <div class="animate-fadeIn absolute inset-0 bg-red-700 bg-opacity-75 p-4"
+                        x-show="show"
+                        x-transition:enter="transition ease-out duration-300 transform"
+                        x-transition:enter-start="opacity-0 scale-95"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
+                    >
+                    <!-- Card content goes here -->
+                    <div class="border-white border h-full text-white p-4">
+                    <!-- Card content -->
+                    <div class="text-[1.5rem] font-bold pb-5">{{ $project->title }}</div>
+                    {!! $project->description !!}
+                </div>
+            </div>
+        </div>
+        @endforeach
+        
+        <!-- If there are no projects of logged user -->
+        @if (count($projects) < 1)
+        <ul>
+            <li class="text-center">
+            @guest
+                No active Projects
+            @endguest
+            </li>
+        </ul>
+        @endif
+    </div>
+    @endguest
+
+    @auth
+    <div class="mt-9 text-center pb-5">
+        @foreach ($projects as $project)
+        <div class="text-2xl">
             @auth
             <a href="{{ url("/projects/edit/{$project->id}") }}">
                 @if ($project->public > 0)
                     <span class="text-green-700 text-xs">Public</span>
                 @else
-                    <span class="text-red-700 text-xs">Draft</span>
+                    <span class="text-red-700 text-xs">Draft&nbsp;&nbsp;</span>
                 @endif
                 | {{ $project->title }}
             </a>
@@ -20,7 +65,7 @@
                 {{ $project->title }}
             </a>
             @endguest
-        </li>
+        </div>
         @endforeach
         <!-- If there are no projects of logged user -->
         @if (count($projects) < 1)
@@ -28,12 +73,11 @@
             @auth
                 <a class="hover:text-red-900" href="{{ route("create") }}">New Project</a>
             @endauth
-            @guest
-                No active Projects
-            @endguest
             </li>
         @endif
-    </ul>
+        </ul>
+    </div>
+    @endauth
 
     <!-- Alert field -->
     @if (session()->has('message'))

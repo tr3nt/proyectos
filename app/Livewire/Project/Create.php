@@ -38,7 +38,7 @@ class Create extends Component
             'description' => $this->description,
             'image' => $imgRoute,
             'public' => $this->public,
-            'id_created_by' => auth()->user()->id
+            'users_id' => auth()->user()->id
         ];
         Project::create($params);
         session()->flash('message', 'Project created successfully');

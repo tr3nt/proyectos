@@ -20,7 +20,7 @@ class ProjectSeeder extends Seeder
                 'description' => fake()->text,
                 'image' => 'nopic.jpg',
                 'public' => fake()->boolean,
-                'id_created_by' => mt_rand(1,2)
+                'users_id' => mt_rand(1,2)
             ]);
         }
     }

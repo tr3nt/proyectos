@@ -20,7 +20,7 @@ class Project extends Model
         'description',
         'image',
         'public',
-        'id_created_by'
+        'users_id'
     ];
 
     /**
@@ -28,6 +28,6 @@ class Project extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_created_by', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }

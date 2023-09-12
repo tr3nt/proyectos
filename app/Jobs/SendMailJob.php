@@ -25,7 +25,7 @@ class SendMailJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(string $title, int $public)
+    public function __construct($title, $public)
     {
         $this->title = $title;
         $this->public = $public;
