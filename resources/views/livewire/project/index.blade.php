@@ -1,4 +1,4 @@
-<div class="text-left">
+<div class="text-left" x-data="{ isOpen: false, openUrl: function(url) { window.location.href = url; } }">
     <div class="text-[3rem] leading-[5rem] w-[480px] mx-auto text-center border-b-2 border-t-2 border-red-600">
         Portafolio
     </div>
@@ -47,18 +47,23 @@
     @endguest
 
     @auth
-    <div class="mt-9 text-center pb-5">
+    <div class="mt-9 w-[480px] mx-auto text-center pb-5">
         @foreach ($projects as $project)
-        <div class="text-2xl">
+        <div class="text-2xl justify-left items-center flex">
             @auth
             <a href="{{ url("/projects/edit/{$project->id}") }}">
+                <p>
                 @if ($project->public > 0)
                     <span class="text-green-700 text-xs">Public</span>
                 @else
                     <span class="text-red-700 text-xs">Draft&nbsp;&nbsp;</span>
                 @endif
                 | {{ $project->title }}
+                </p>
             </a>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="red" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="isOpen = true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M12 6v14M5 6l1 14M19 6l-1 14"></path>
+            </svg>
             @endauth
             @guest
             <a href="{{ url("/projects/{$project->id}") }}">
@@ -88,4 +93,15 @@
         <p>{!! session('message') !!}</p>
     </div>
     @endif
+
+    <!-- Delete modal -->
+    <div x-show="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="bg-white p-4 shadow-lg rounded-lg">
+            <p>Are you sure you want to delete project {{ $project->title }}?</p>
+            <div class="mt-4">
+                <button @click="isOpen = false" class="px-4 py-2 mr-2 bg-gray-200 hover:bg-gray-300">Cancel</button>
+                <button @click="openUrl('/projects/delete/{{$project->id}}')" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -11,7 +11,7 @@ class Delete extends Component
     {
         $project->delete();
         session()->flash('message', "Project {$project->title} deleted successfully");
-        return redirect('home');
+        return redirect(route('home'));
     }
 
     public function render()
