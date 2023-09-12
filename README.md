@@ -1,4 +1,4 @@
-## Projects 1.0
+## Projects 2.0
 
 ### Installation
 
@@ -57,7 +57,7 @@ php artisan queue:work
 - u: john@gmail.com | p: 12345678
 
 ### DONE
-Backend:
+#### Backend:
 - Migrations and seeder working.
 - Users registration, login and logout.
 - Create, list, show and update Projects.
@@ -65,7 +65,14 @@ Backend:
 - Protected routes with Laravel Auth.
 - Frontend public and logged sections.
 - Added Testing cases.
-- 10 min delayed email in **Create** and **Index** Livewire controllers, **SendMailJob** job and **ProjectUpdate** mailable.
+- Created **SendMailJob** job and **ProjectUpdate** mailable.
+- Observers on updating and deleting
+- Changed foreign key from id_created_by to users_id (must run php artisan migrate:refresh)
+- Removed try catch, Validator instances and added flash messages
+- Used Storage class to save the image of a new register
+- Changed Mailable to send after 10 min only when status change (using observer)
+#### Frontend:
+- Created mosaic and animations with Alpinejs on Guest section
 
 ### TODO
 
