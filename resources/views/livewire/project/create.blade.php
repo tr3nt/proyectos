@@ -13,8 +13,8 @@
             </div>
             <div class="md:w-2/3">
                 <input class="w-[480px] bg-gray-100 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900"
-                    id="inline-title" type="text" placeholder="Back to the future" wire:model="title">
-                @error('title') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+                    id="inline-title" type="text" placeholder="Back to the future" wire:model="form.title">
+                @error('form.title') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
     
@@ -27,11 +27,11 @@
             </div>
             <div class="md:w-2/3" wire:ignore>
                 <textarea class="w-[480px] bg-gray-100 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900 h-20"
-                    id="editor" wire:model="description"></textarea>
+                    id="editor" wire:model="form.description"></textarea>
             </div>
         </div>
         <div class="text-center mb-6 text-sm text-red-600">
-            @error('description') {{ $message }} @enderror
+            @error('form.description') {{ $message }} @enderror
         </div>
         
         <!-- Image field -->
@@ -43,8 +43,8 @@
             </div>
             <div class="md:w-2/3">
                 <input class="block w-[480px] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    id="inline-image" type="file" wire:model="image">
-                @error('image') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+                    id="inline-image" type="file" wire:model="form.image">
+                @error('form.image') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
 
@@ -57,16 +57,16 @@
             </div>
             <div class="md:w-2/3">
                 <div class="flex items-center mb-4">
-                    <input id="default-radio-1" type="radio" value="1" name="default-radio" wire:model="public"
+                    <input id="default-radio-1" type="radio" value="1" name="default-radio" wire:model="form.public"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">Public</label>
                 </div>
                 <div class="flex items-center">
-                    <input checked id="default-radio-2" type="radio" value="0" name="default-radio" wire:model="public"
+                    <input checked id="default-radio-2" type="radio" value="0" name="default-radio" wire:model="form.public"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">Draft</label>
                 </div>
-                @error('public') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+                @error('form.public') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
         
@@ -102,7 +102,7 @@
                 })
                 .then(function(editor){
                     editor.model.document.on('change:data', () => {
-                        @this.set('description', editor.getData());
+                        @this.set('form.description', editor.getData());
                     })
                 })
                 .catch(error => {

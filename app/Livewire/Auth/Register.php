@@ -8,32 +8,20 @@ use App\Models\User;
 
 class Register extends Component
 {
-    public string $name;
-    public string $email;
-    public string $password;
+    public array $form = [];
     protected array $rules = [
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8'
+        'form.name' => 'required|string|max:255',
+        'form.email' => 'required|string|email|max:255|unique:users',
+        'form.password' => 'required|string|min:8'
     ];
 
     public function register()
     {
-        // Validate new user values with Validator
         $this->validate();
-        // Set params
-        $params = [
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password)
-        ];
-        // If all values are valid, then insert new User
-        User::create($params);
-        // Set flash message
+        $this->form['password'] = Hash::make($this->form['password']);
+        User::create($this->form);
         session()->flash('message', 'User created successfully');
-        session()->flash('username', $this->email);
-        // Redirect to Login
-        $this->redirect(Login::class);
+        return redirect(route('login'));
     }
 
     public function render()

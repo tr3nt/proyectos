@@ -1,83 +1,87 @@
-<div class="text-left">
-    <div class="text-[3rem] leading-[5rem] w-[480px] mx-auto text-center border-b-2 border-t-2 border-red-600">
-        Portafolio
+<div>
+    <div class="text-2xl leading-[4rem]">
+        Edit Project
     </div>
-    @guest
-    <div class="w-full max-w-[75%] p-5 pb-10 mx-auto mb-10 gap-4 columns-3 space-y-3">
-        @foreach ($projects as $project)
-        <div x-data="{show: false}">
-            <div class="relative"
-                    x-on:mouseenter="show = true"
-                    x-on:mouseleave="show = false"
-                >
-                <!-- Image -->
-                <img src="{{ asset('storage/' . $project->image) }}" alt="Your Image" class="w-full h-auto" />
-
-                <!-- Semi-transparent card -->
-                <div class="animate-fadeIn absolute inset-0 bg-red-700 bg-opacity-75 p-4"
-                        x-show="show"
-                        x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 scale-95"
-                        x-transition:enter-end="opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-200 transform"
-                        x-transition:leave-start="opacity-100 scale-100"
-                        x-transition:leave-end="opacity-0 scale-95"
-                    >
-                    <!-- Card content goes here -->
-                    <div class="border-white border h-full text-white p-4">
-                    <!-- Card content -->
-                    <div class="text-[1.5rem] font-bold pb-5">{{ $project->title }}</div>
-                    {!! $project->description !!}
-                </div>
+    <form class="w-full" wire:submit.prevent="update">
+    
+        <!-- Title field -->
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-title">
+                    Title
+                </label>
+            </div>
+            <div class="md:w-2/3">
+                <input class="w-[480px] bg-gray-100 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900"
+                    id="inline-title" type="text" placeholder="Back to the future" wire:model="form.title">
+                @error('form.title') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
-        @endforeach
-        
-        <!-- If there are no projects of logged user -->
-        @if (count($projects) < 1)
-        <ul>
-            <li class="text-center">
-            @guest
-                No active Projects
-            @endguest
-            </li>
-        </ul>
-        @endif
-    </div>
-    @endguest
-
-    @auth
-    <div class="mt-9 text-center pb-5">
-        @foreach ($projects as $project)
-        <div class="text-2xl">
-            @auth
-            <a href="{{ url("/projects/edit/{$project->id}") }}">
-                @if ($project->public > 0)
-                    <span class="text-green-700 text-xs">Public</span>
-                @else
-                    <span class="text-red-700 text-xs">Draft&nbsp;&nbsp;</span>
-                @endif
-                | {{ $project->title }}
-            </a>
-            @endauth
-            @guest
-            <a href="{{ url("/projects/{$project->id}") }}">
-                {{ $project->title }}
-            </a>
-            @endguest
+    
+        <!-- Description field -->
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="editor">
+                    Description
+                </label>
+            </div>
+            <div class="md:w-2/3" wire:ignore>
+                <textarea class="w-[480px] bg-gray-100 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900 h-20"
+                    id="editor" wire:model="form.description">{{ $form['description'] }}</textarea>
+            </div>
         </div>
-        @endforeach
-        <!-- If there are no projects of logged user -->
-        @if (count($projects) < 1)
-            <li class="text-center">
-            @auth
-                <a class="hover:text-red-900" href="{{ route("create") }}">New Project</a>
-            @endauth
-            </li>
-        @endif
-        </ul>
-    </div>
-    @endauth
+        <div class="text-center mb-6 text-sm text-red-600">
+            @error('form.description') {{ $message }} @enderror
+        </div>
+        
+        <!-- Image field -->
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-image">
+                    Image
+                </label>
+            </div>
+            <div class="md:w-2/3">
+                <img class="w-[480px] mx-auto" src="{{ asset('storage/' . $project->image) }}">
+                <input class="block w-[480px] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="inline-image" type="file" wire:model="form.image">
+                @error('form.image') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <!-- Radio field -->
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-image">
+                    Status
+                </label>
+            </div>
+            <div class="md:w-2/3">
+                <div class="flex items-center mb-4">
+                    <input id="default-radio-1" type="radio" value="1" name="default-radio" wire:model="form.public"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">Public</label>
+                </div>
+                <div class="flex items-center">
+                    <input checked id="default-radio-2" type="radio" value="0" name="default-radio" wire:model="form.public"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-400">Draft</label>
+                </div>
+                @error('form.public') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+            </div>
+        </div>
+        
+        <!-- Button field -->
+        <div class="md:flex md:items-center">
+            <div class="md:w-1/3"></div>
+            <div class="md:w-2/3 lg:text-left">
+                <button class="shadow bg-gray-500 hover:bg-red-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    type="submit">
+                    Update
+                </button>
+            </div>
+        </div>
+    </form>
 
     <!-- Alert field -->
     @if (session()->has('message'))
@@ -88,4 +92,23 @@
         <p>{!! session('message') !!}</p>
     </div>
     @endif
+
+    <!-- CKEditor WYSIWYG -->
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList' ],
+                })
+                .then(function(editor){
+                    editor.model.document.on('change:data', () => {
+                        @this.set('form.description', editor.getData());
+                    })
+                })
+                .catch(error => {
+                    console.error(error)
+                });
+        </script>
+    @endpush
 </div>

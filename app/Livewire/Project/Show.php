@@ -2,39 +2,40 @@
 
 namespace App\Livewire\Project;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Show extends Component
 {
-    public Collection $projects;
+    use WithFileUploads;
+    public Project $project;
+    public array $form = [];
+    protected array $rules = [
+        'form.title' => 'required|string|max:255',
+        'form.description' => 'required|string',
+        'form.public' => 'required'
+    ];
 
-    // Set in $projects depending on auth and guest
-    public function mount() : void
+    public function mount(Project $project)
     {
-        if (Auth::check())
-            $this->getProjects();
-        else
-            $this->getPublicProjects();
+        $this->project = $project;
+        $this->form = $this->project->toArray();
     }
 
-    // Get all projects by user logged id
-    private function getProjects() : void
+    public function update()
     {
-        $this->projects = Project::where('users_id', auth()->user()->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
-    }
-
-    // Get all public projects (except draft projects)
-    private function getPublicProjects() : void
-    {
-        $this->projects = Project::where('public', 1)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $this->validate();
+        if ($this->form['image'] instanceof UploadedFile) {
+            $imgRoute = Storage::disk('public')->put('images', $this->form['image']);
+            $this->form['image'] = $imgRoute;
+        }
+        $this->project->update($this->form);
+        session()->flash('message', "Project {$this->project->title} updated successfully");
+        return redirect(route('home'));
     }
 
     public function render() : View

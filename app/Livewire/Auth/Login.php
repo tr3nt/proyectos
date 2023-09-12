@@ -9,34 +9,19 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public string $email;
-    public string $password;
+    public array $form = [];
     protected array $rules = [
-        'email' => 'required|string|email|max:255',
-        'password' => 'required|string|min:8'
+        'form.email' => 'required|string|email|max:255',
+        'form.password' => 'required|string|min:8'
     ];
-
-    public function mount() : void
-    {
-        // Fill login with username after Register
-        if (@session('username')) {
-            $this->email = @session('username');
-        }
-    }
 
     public function login()
     {
-        // Validate login values with Validator
         $this->validate();
-        // If all values are valid, then try to login
-        $params = [
-            'email' => $this->email,
-            'password' => $this->password
-        ];
-        if (Auth::attempt($params))
-            $this->redirect(Show::class);
-        else
-            session()->flash('message', 'Bad Credentials');
+        if (Auth::attempt($this->form)) {
+            return redirect(route('home'));
+        }
+        session()->flash('message', 'Bad Credentials');
     }
 
     public function render() : View

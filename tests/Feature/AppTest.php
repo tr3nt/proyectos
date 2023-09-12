@@ -32,11 +32,6 @@ class AppTest extends TestCase
         $response = $this->get('/projects');
         $response->assertStatus(200);
     }
-    public function test_project_by_id_works() : void
-    {
-        $response = $this->get('/projects/1');
-        $response->assertStatus(200);
-    }
     public function test_auth_block_create_project_works() : void
     {
         $response = $this->get('/projects/create');

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Project\Create;
+use App\Livewire\Project\Delete;
 use App\Livewire\Project\Index;
 use App\Livewire\Project\Show;
 
@@ -22,16 +23,16 @@ use App\Livewire\Project\Show;
 Route::middleware('auth')->group(function () {
     Route::prefix('projects')->group(function () {
         Route::get('/create', Create::class)->name('create');
-        Route::get('/edit/{id}', Index::class)->name('project');
+        Route::get('/edit/{project}', Show::class)->name('show');
+        Route::get('/delete/{project}', Delete::class)->name('delete');
     });
 });
 
 // Public routes
-Route::get('/', function () { return view('app'); })->name('home');
+Route::get('/', function () { return view('app'); })->name('index');
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 
 Route::prefix('projects')->group(function () {
-    Route::get('/', Show::class)->name('show');
-    Route::get('/{id}', Index::class)->name('project');
+    Route::get('/', Index::class)->name('home');
 });

@@ -13,8 +13,8 @@
             </div>
             <div class="md:w-2/3">
                 <input class="bg-gray-100 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900"
-                    id="inline-email" type="text" placeholder="john.doe@mail.com" wire:model="email">
-                @error('email') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+                    id="inline-email" type="text" placeholder="john.doe@mail.com" wire:model="form.email">
+                @error('form.email') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
         
@@ -27,8 +27,8 @@
             </div>
             <div class="md:w-2/3">
                 <input class="bg-gray-100 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-900"
-                    id="inline-password" type="password" placeholder="********" wire:model="password">
-                @error('password') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+                    id="inline-password" type="password" placeholder="********" wire:model="form.password">
+                @error('form.password') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
         
