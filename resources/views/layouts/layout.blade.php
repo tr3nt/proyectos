@@ -23,7 +23,7 @@
                 <div class="leading-[4rem]">
                     <ul class="flex items-center gap-[4vw]">
                         <li><a class="hover:text-red-900" href="{{ route('home') }}">Home</a></li>
-                        <li><a class="hover:text-red-900" href="{{ route('show') }}">Projects</a></li>
+                        <li><a class="hover:text-red-900" href="{{ route('show') }}">Portafolio</a></li>
                     @auth
                         <li><a class="hover:text-red-900" href="{{ route('create') }}">New Project</a></li>
                     @endauth
