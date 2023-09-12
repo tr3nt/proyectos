@@ -75,9 +75,6 @@ php artisan queue:work
 - Created mosaic and animations with Alpinejs on Guest section
 
 ### TODO
-#### Issues
-- Observer deletes new image when a register update for second time
-- Register is not working since params changed to an array
 
 ### Created by
 Esaim Najera Mondragon
