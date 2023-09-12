@@ -50,7 +50,6 @@
     <div class="mt-9 w-[480px] mx-auto text-center pb-5">
         @foreach ($projects as $project)
         <div class="text-2xl justify-left items-center flex">
-            @auth
             <a href="{{ url("/projects/edit/{$project->id}") }}">
                 <p>
                 @if ($project->public > 0)
@@ -64,12 +63,6 @@
             <svg class="w-4 h-4 ml-2" fill="none" stroke="red" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="isOpen = true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M12 6v14M5 6l1 14M19 6l-1 14"></path>
             </svg>
-            @endauth
-            @guest
-            <a href="{{ url("/projects/{$project->id}") }}">
-                {{ $project->title }}
-            </a>
-            @endguest
         </div>
         @endforeach
         <!-- If there are no projects of logged user -->
@@ -95,6 +88,7 @@
     @endif
 
     <!-- Delete modal -->
+    @if (count($projects) > 0)
     <div x-show="isOpen" class="fixed inset-0 flex items-center justify-center z-50">
         <div class="bg-white p-4 shadow-lg rounded-lg">
             <p>Are you sure you want to delete project {{ $project->title }}?</p>
@@ -104,4 +98,5 @@
             </div>
         </div>
     </div>
+    @endif
 </div>

@@ -11,7 +11,7 @@ class Register extends Component
     public array $form = [];
     protected array $rules = [
         'form.name' => 'required|string|max:255',
-        'form.email' => 'required|string|email|max:255|unique:users',
+        'form.email' => 'required|string|email|max:255',
         'form.password' => 'required|string|min:8'
     ];
 
