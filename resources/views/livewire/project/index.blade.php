@@ -49,7 +49,7 @@
             <p>Are you sure you want to delete project {{ $project->title }}?</p>
             <div class="mt-4">
                 <button @click="isOpen = false" class="px-4 py-2 mr-2 bg-gray-200 hover:bg-gray-300">Cancel</button>
-                <button @click="isOpen = false" wire:click="deleteById({{ $id }})" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
+                <button @click="isOpen = false" wire:click="deleteById" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
             </div>
         </div>
     </div>

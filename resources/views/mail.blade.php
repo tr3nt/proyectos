@@ -8,9 +8,9 @@
 </head>
 <body>
     <main>
-        <h1>Projects changed</h1>
+        <h1>Projects status updated</h1>
         <h3>Project: {{ $title }}</h3>
-        <h3>Author: {{ $name }}</h3>
+        <h3>Status: {{ $public == 1 ? 'Public' : 'Draft' }}</h3>
     </main>
 </body>
 </html>

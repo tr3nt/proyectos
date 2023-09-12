@@ -3,8 +3,8 @@
 namespace App\Livewire\Auth;
 
 use Illuminate\Support\Facades\Auth;
-use App\Livewire\Project\Show;
 use Illuminate\Contracts\View\View;
+use App\Livewire\Project\Show;
 use Livewire\Component;
 
 class Login extends Component

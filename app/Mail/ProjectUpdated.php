@@ -20,7 +20,7 @@ class ProjectUpdated extends Mailable
      */
     public function __construct(
         public string $title,
-        public string $name,
+        public int $public,
     ) {}
 
     /**
@@ -30,7 +30,7 @@ class ProjectUpdated extends Mailable
     {
         return new Envelope(
             from: new Address('esaim.najera@gmail.com', 'Esaim Najera'),
-            subject: 'Projects Changed',
+            subject: "Project {$this->title} status updated",
         );
     }
 

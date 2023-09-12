@@ -20,15 +20,15 @@ class SendMailJob implements ShouldQueue
      * params
      */
     private $title;
-    private $name;
+    private $public;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(string $title, string $name)
+    public function __construct(string $title, int $public)
     {
         $this->title = $title;
-        $this->name = $name;
+        $this->public = $public;
     }
 
     /**
@@ -37,6 +37,6 @@ class SendMailJob implements ShouldQueue
     public function handle()
     {
         Mail::to('esaim.najera@gmail.com')
-            ->send(new ProjectUpdated($this->title, $this->name));
+            ->send(new ProjectUpdated($this->title, $this->public));
     }
 }
