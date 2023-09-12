@@ -2,61 +2,48 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Contracts\Validation\Validator as ValidationValidator;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Livewire\Project\Show;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use PDOException;
-use Exception;
 
 class Login extends Component
 {
-    public $form = [
-        'email' => '',
-        'password' => ''
+    public string $email;
+    public string $password;
+    protected array $rules = [
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string|min:8'
     ];
-    public $response;
 
-    public function render()
+    public function mount() : void
     {
-        return view('livewire.auth.login')
-            ->extends('layouts.layout')
-            ->section('content');
+        // Fill login with username after Register
+        if (@session('username')) {
+            $this->email = @session('username');
+        }
     }
 
     public function login()
     {
         // Validate login values with Validator
-        $validator = Validator::make($this->form, [
-            "email" => "required|string|email|max:255",
-            "password" => "required|string|min:8"
-        ]);
-        if ($validator->fails()) {
-            $this->response = $this->errorList($validator);
-        } else {
-            // If all values are valid, then try to login
-            try {
-                if (!Auth::attempt($this->form)) {
-                    $this->response = "Bad Credentials";
-                } else {
-                    return redirect(route('show'));
-                }
-            } catch (PDOException $e) {
-                $this->response = json_encode($e->getMessage());
-            } catch (Exception $e) {
-                $this->response = json_encode($e->getMessage());
-            }
+        $this->validate();
+        // If all values are valid, then try to login
+        $params = [
+            'email' => $this->email,
+            'password' => $this->password
+        ];
+        if (Auth::attempt($params)) {
+            $this->redirect(Show::class);
         }
+        // Not logged
+        session()->flash('message', 'Bad Credentials');
     }
 
-    // Get all errors and convert them into a string
-    private function errorList(ValidationValidator $validator) : string
+    public function render() : View
     {
-        $errors = [];
-        $err = $validator->errors();
-        foreach($err->all() as $e) {
-            $errors[] = $e;
-        }
-        return implode('<br>', $errors);
+        return view('livewire.auth.login')
+            ->extends('layouts.layout')
+            ->section('content');
     }
 }
