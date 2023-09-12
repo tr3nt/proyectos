@@ -13,7 +13,7 @@ class ProjectObserver
         if ($project->isDirty('image')) {
             $oldImage = $project->getOriginal('image');
             if ($oldImage && Storage::disk('public')->exists($oldImage) && $oldImage !== 'nopic.jpg') {
-                Storage::disk('public')->delete($project->image);
+                Storage::disk('public')->delete($oldImage);
             }
         }
         if ($project->isDirty('public')) {
