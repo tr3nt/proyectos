@@ -1,4 +1,4 @@
-<div class="text-left" x-data="{ isOpen: false, openUrl: function(url) { window.location.href = url; } }">
+<div class="text-left" x-data="{ isOpen: false, idProject: '', openUrl: function(url) { window.location.href = url; } }">
     <div class="text-[3rem] leading-[5rem] w-[480px] mx-auto text-center border-b-2 border-t-2 border-red-600">
         Portafolio
     </div>
@@ -60,7 +60,8 @@
                 | {{ $project->title }}
                 </p>
             </a>
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="red" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="isOpen = true">
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="red" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                @click="isOpen = true; idProject = '{{"/projects/delete/{$project->id}"}}'">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M12 6v14M5 6l1 14M19 6l-1 14"></path>
             </svg>
         </div>
@@ -94,7 +95,7 @@
             <p>Are you sure you want to delete project {{ $project->title }}?</p>
             <div class="mt-4">
                 <button @click="isOpen = false" class="px-4 py-2 mr-2 bg-gray-200 hover:bg-gray-300">Cancel</button>
-                <button @click="openUrl('/projects/delete/{{$project->id}}')" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
+                <button @click="openUrl(idProject)" class="px-4 py-2 bg-red-900 hover:bg-red-600 text-white">Confirm</button>
             </div>
         </div>
     </div>
