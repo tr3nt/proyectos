@@ -7,7 +7,7 @@
         <title>Projects</title>
 
         <!-- Tailwind -->
-        @vite('resources/css/app.css')
+        @vite('resources/sass/app.scss')
         <!-- Livewire styles -->
         @livewireStyles
         <!-- Alpinejs -->
